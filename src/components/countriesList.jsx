@@ -55,11 +55,20 @@ class CountriesList extends Component {
         }
     }
 
+    handleFilter = (e) => {
+        const { value } = e.target;
+        fetch(`http://localhost:3000/countries/?name=${value}`)
+            .then(result => result.json())
+            .then(countries => this.setState({countries}))
+            .catch(err => alert(err));
+    }
+
     render(){
         const { countries } = this.state;
         return (
             <div>
                 <h1>Countries</h1>
+                <input type="text" onChange={this.handleFilter}></input>
                 {countries.map(country => {
                     return (
                         <CountryCard 
