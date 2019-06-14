@@ -32,14 +32,27 @@ class CountriesList extends Component {
     }
 
     handleDeleteCountry = (code) => {
-        fetch(`http://localhost:3000/countries/${code}`,
-        {
-            method: "DELETE"
-        })
-            .then(() => fetch("http://localhost:3000/countries"))
-            .then(result => result.json())
-            .then(countries => this.setState({countries}))
-            .catch(err => alert(err));
+        let status = 0;
+        let deleteIt = window.confirm("Are you sure?");
+        if(deleteIt){
+            fetch(`http://localhost:3000/countries/${code}`,
+            {
+                method: "DELETE"
+            })
+                .then(res => {
+                    status = res.status;
+                    if(!res.ok) return res.json();
+                })
+                .then(res => {
+                    if(status !== 204) {
+                        alert(res.message);
+                    }
+                    return fetch("http://localhost:3000/countries");
+                })
+                .then(result => result.json())
+                .then(countries => this.setState({countries}))
+                .catch(err => alert(err));
+        }
     }
 
     render(){
