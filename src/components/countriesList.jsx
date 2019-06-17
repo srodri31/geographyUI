@@ -5,18 +5,35 @@ class CountriesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            countries: []
+            countries: [],
+            filter: {
+                name: ""
+            }
         }
     }
 
     componentDidMount(){
-        fetch("http://localhost:3000/countries")
+        const { name } = this.state.filter;
+        fetch(`http://localhost:3000/countries/?name=${name}`)
             .then(result => result.json())
             .then(countries => this.setState({countries}))
             .catch(err => alert(err));
+        // fetch("http://localhost:3000/countries")
+        //     .then(result => result.json())
+        //     .then(countries => this.setState({countries}))
+        //     .catch(err => alert(err));
     }
 
+    // componentDidUpdate(){
+    //     const { name } = this.state.filter;
+    //     fetch(`http://localhost:3000/countries/?name=${name}`)
+    //         .then(result => result.json())
+    //         .then(countries => this.setState({countries}))
+    //         .catch(err => alert(err));
+    // }
+
     handleUpdateCountry = (code, body) => {
+        const { name } = this.state.filter;
         fetch(`http://localhost:3000/countries/${code}`,
         {
             method: "PUT",
@@ -25,7 +42,7 @@ class CountriesList extends Component {
             },
             body: JSON.stringify(body)
         })
-            .then(() => fetch("http://localhost:3000/countries"))
+            .then(() => fetch(`http://localhost:3000/countries/?name=${name}`))
             .then(result => result.json())
             .then(countries => this.setState({countries}))
             .catch(err => alert(err));
@@ -50,14 +67,18 @@ class CountriesList extends Component {
                     return fetch("http://localhost:3000/countries");
                 })
                 .then(result => result.json())
-                .then(countries => this.setState({countries}))
+                .then(countries => this.setState({countries, filter: {name: ""}}))
                 .catch(err => alert(err));
         }
     }
 
     handleFilter = (e) => {
         const { value } = e.target;
-        fetch(`http://localhost:3000/countries/?name=${value}`)
+        this.setState({
+            filter: { name: value }
+        })
+        const { name } = this.state.filter;
+        fetch(`http://localhost:3000/countries/?name=${name}`)
             .then(result => result.json())
             .then(countries => this.setState({countries}))
             .catch(err => alert(err));
@@ -68,7 +89,7 @@ class CountriesList extends Component {
         return (
             <div>
                 <h1>Countries</h1>
-                <input type="text" onChange={this.handleFilter}></input>
+                <input type="text" value={this.state.filter.name} onChange={this.handleFilter}></input>
                 {countries.map(country => {
                     return (
                         <CountryCard 
