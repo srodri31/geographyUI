@@ -18,19 +18,7 @@ class CountriesList extends Component {
             .then(result => result.json())
             .then(countries => this.setState({countries}))
             .catch(err => alert(err));
-        // fetch("http://localhost:3000/countries")
-        //     .then(result => result.json())
-        //     .then(countries => this.setState({countries}))
-        //     .catch(err => alert(err));
     }
-
-    // componentDidUpdate(){
-    //     const { name } = this.state.filter;
-    //     fetch(`http://localhost:3000/countries/?name=${name}`)
-    //         .then(result => result.json())
-    //         .then(countries => this.setState({countries}))
-    //         .catch(err => alert(err));
-    // }
 
     handleUpdateCountry = (code, body) => {
         const { name } = this.state.filter;
@@ -88,17 +76,24 @@ class CountriesList extends Component {
         const { countries } = this.state;
         return (
             <div>
-                <h1>Countries</h1>
-                <input type="text" value={this.state.filter.name} onChange={this.handleFilter}></input>
-                {countries.map(country => {
-                    return (
-                        <CountryCard 
-                            key={country.code} 
-                            country={country} 
-                            onUpdate={this.handleUpdateCountry}
-                            onDelete={this.handleDeleteCountry}/>
-                    )
-                })}
+                <h1 className="text-center m-5">Countries</h1>
+                <input 
+                    type="text" 
+                    value={this.state.filter.name} 
+                    onChange={this.handleFilter} 
+                    className="input-text m-5"
+                    placeholder="Type a name..."/>
+                <div className="card-container p-5">
+                    {countries.map(country => {
+                        return (
+                            <CountryCard 
+                                key={country.code} 
+                                country={country} 
+                                onUpdate={this.handleUpdateCountry}
+                                onDelete={this.handleDeleteCountry}/>
+                        )
+                    })}
+                </div>
             </div>
         )
     }

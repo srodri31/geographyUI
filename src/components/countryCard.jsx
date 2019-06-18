@@ -39,19 +39,30 @@ class CountryCard extends Component {
         const {code, name} = this.props.country;
         if(this.state.isEditing) {
             return(
-                <form onSubmit={this.handleSubmit}>
-                    <input value={this.state.name} onChange={this.handleChange}></input>
-                    <input type="submit" value="Guardar"></input>
-                    <button onClick={this.handleEditClick}>Cancelar</button>
-                </form>
+                <article className="card p-5">
+                    <form onSubmit={this.handleSubmit}>
+                        <input 
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                            className="input-text"></input>
+                        <footer className="p-5">
+                            <input type="submit" value="Guardar" className="button m-2"></input>
+                            <button onClick={this.handleEditClick} className="button btn-error m-2">Cancelar</button>
+                        </footer>
+                    </form>
+                </article>
             )
         } else {
             return(
-                <React.Fragment>
-                    {name} - {code} 
-                    <button onClick={this.handleEditClick}>Editar</button>
-                    <button onClick={this.handleDeleteClick}>Eliminar</button>
-                </React.Fragment>
+                <article className="card p-5">
+                    <h1>
+                        {name} - {code}
+                    </h1>
+                    <footer className="p-5">
+                        <button onClick={this.handleEditClick} className="button m-2">Editar</button>
+                        <button onClick={this.handleDeleteClick} className="button btn-error m-2">Eliminar</button>
+                    </footer>
+                </article>
             );
         }
     }

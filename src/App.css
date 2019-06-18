@@ -1,0 +1,68 @@
+/* general */
+html {
+    font-size: 15px;
+}
+
+.p-2 {
+    padding: 0.2rem;
+}
+.p-5 {
+    padding: 1rem;
+}
+
+.m-2 {
+    margin: 0.2rem;
+}
+.m-5 {
+    margin: 1rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.input-text {
+    border-radius: 1rem;
+    border: 1px solid #2e898e;
+    padding: 0.5rem 1rem;
+}
+
+.button {
+    border: none;
+    background: #2e898e;
+    border-radius: 1rem;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    transition: background ease-in-out 0.2s;
+    cursor: pointer;
+}
+.button:hover {
+    background: #22676b;
+}
+
+.btn-error {
+    background: #ce1a5b;
+}
+.btn-error:hover {
+    background: #b3164e;
+}
+
+/* Country Cards */
+
+.card-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+}
+
+.card {
+    border: 1px solid #2e898e;
+    border-radius: 15px;
+    transition: all ease-in-out 0.2s;
+}
+
+.card:hover {
+    box-shadow: #22676b 5px 5px 5px;
+    transform: translate(-0.2rem, -0.2rem);
+}
