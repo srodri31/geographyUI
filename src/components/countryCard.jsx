@@ -55,7 +55,7 @@ class CountryCard extends Component {
         } else {
             return(
                 <article className="card p-5">
-                    <h1>
+                    <h1 onClick={this.handleEditClick}>
                         {name} - {code}
                     </h1>
                     <footer className="p-5">

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CountryCard from './countryCard';
+import { connect } from "react-redux";
+import * as actions from "../js/actions";
 
 class CountriesList extends Component {
     constructor(props) {
@@ -12,13 +14,13 @@ class CountriesList extends Component {
         }
     }
 
-    componentDidMount(){
-        const { name } = this.state.filter;
-        fetch(`http://localhost:3000/countries/?name=${name}`)
-            .then(result => result.json())
-            .then(countries => this.setState({countries}))
-            .catch(err => alert(err));
-    }
+    // componentDidMount(){
+    //     const { name } = this.state.filter;
+    //     fetch(`http://localhost:3000/countries/?name=${name}`)
+    //         .then(result => result.json())
+    //         .then(countries => this.setState({countries}))
+    //         .catch(err => alert(err));
+    // }
 
     handleUpdateCountry = (code, body) => {
         const { name } = this.state.filter;
@@ -73,7 +75,8 @@ class CountriesList extends Component {
     }
 
     render(){
-        const { countries } = this.state;
+        // const { countries } = this.state;
+        const { countries } = this.props;
         return (
             <div>
                 <h1 className="text-center m-5">Countries</h1>
@@ -99,4 +102,10 @@ class CountriesList extends Component {
     }
 }
 
-export default CountriesList;
+function mapStateToProps(state, ownProps) {
+    return {
+        countries: state
+    }
+} 
+
+export default connect(mapStateToProps)(CountriesList);
